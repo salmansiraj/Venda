@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { Component } from "react";
+
+import Login from "./Components/Login";
+import Register from "./Components/Register";
+
 import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Venda
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  
+  
+  render() { 
+    return (
+      <div className="App">
+        <br />
+        <Router>
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+        </Router>
+      </div>
+    );
+
+  }
 }
-
-export default App;
