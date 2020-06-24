@@ -9,11 +9,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class App extends Component {
   
-  
   render() { 
     return (
       <div className="App">
-        <br />
         <Router>
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
