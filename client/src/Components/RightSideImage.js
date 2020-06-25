@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import sidepic from "../Assets/sidepic.jpg";
+import sidepic from '../Assets/sidepic.jpg'
 
 class RightSideImage extends Component {
     render() {
