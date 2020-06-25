@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button, Form, FormGroup, Label, Input, Card } from 'reactstrap';
 import logo from "../Assets/logo.png";
 import sidepic from "../Assets/sidepic.jpg";
+import RightSideImage from "./RightSideImage";
 
 class Login extends Component {
     render() {
@@ -71,34 +72,8 @@ class Login extends Component {
                 <br />
               </Form>
             </div>
-
-            <div
-              className="container"
-              style={{
-                width: "55%",
-                padding: "0"
-              }}
-            >
-              <img
-                src={sidepic}
-                className="text-center"
-                style={{
-                  height: "100%",
-                  width: "100%"
-                }}
-                alt=""
-              />
-              <div
-                style={{
-                    backgroundColor: "rgba(248, 240, 250, 0.35)",
-                    position: "absolute",
-                    top: "0",
-                    right: "0",
-                    width: "55%",
-                    height: "100%",
-                }}>
-              </div>
-            </div>
+            <RightSideImage />
+            
           </Card>
         );
     }

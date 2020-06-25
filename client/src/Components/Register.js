@@ -4,8 +4,8 @@ import { Form, Button, Col } from "react-bootstrap";
 import { FormGroup, Label, Input, Card } from "reactstrap";
 
 import logo from "../Assets/logo.png";
-import sidepic from "../Assets/sidepic.jpg";
 import next from "../Assets/next.png";
+import RightSideImage from './RightSideImage';
 
 class Register extends Component {
   render() {
@@ -102,38 +102,7 @@ class Register extends Component {
             <br />
           </Form>
         </div>
-
-        <div
-          className="container"
-          style={{
-            width: "55%",
-            padding: "0",
-            borderTopRightRadius: "20px",
-            borderBottomRightRadius: "20px",
-          }}
-        >
-          <img
-            src={sidepic}
-            className="text-center"
-            style={{
-              height: "100%",
-              width: "100%",
-              borderTopRightRadius: "20px",
-              borderBottomRightRadius: "20px",
-            }}
-            alt=""
-          />
-          <div
-            style={{
-              backgroundColor: "rgba(248, 240, 250, 0.35)",
-              position: "absolute",
-              top: "0",
-              right: "0",
-              width: "55%",
-              height: "100%",
-            }}
-          ></div>
-        </div>
+        <RightSideImage />
       </Card>
     );
   }
