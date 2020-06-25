@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Button, Form, FormGroup, Label, Input, Card } from 'reactstrap';
 import logo from "../Assets/logo.png";
-import sidepic from "../Assets/sidepic.jpg";
 import RightSideImage from "./RightSideImage";
 
 class Login extends Component {
@@ -72,8 +71,9 @@ class Login extends Component {
                 <br />
               </Form>
             </div>
-            <RightSideImage />
             
+            <RightSideImage />
+
           </Card>
         );
     }
