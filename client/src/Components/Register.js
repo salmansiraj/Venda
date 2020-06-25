@@ -5,98 +5,102 @@ import { FormGroup, Label, Input, Card } from "reactstrap";
 
 import logo from "../Assets/logo.png";
 import sidepic from "../Assets/sidepic.jpg";
+import next from "../Assets/next.png";
 
 class Register extends Component {
   render() {
     return (
-      <Card
-        className="card-group"
-        style={{
-          margin: "4%",
-          borderRadius: "20px",
-          boxShadow: "#f3f3f3 5px 10px",
-        }}
-      >
+      <Card className="card-group">
         <div
-        className="container"
-        style={{ width: "45%", borderRadius: "20px" }}
+          className="container"
+          style={{ width: "45%", borderRadius: "20px", padding: "2%" }}
         >
-        <br />
-        <div className="text-center">
+          <br />
+          <div className="text-center">
             <img
-            src={logo}
-            style={{
+              src={logo}
+              style={{
                 width: "300px",
                 height: "90px",
-            }}
-            alt="login"
+              }}
+              alt="login"
             />
-        </div>
+          </div>
 
-        <Form className="login-form" style={{ padding: "10px" }}>
+          <Form className="login-form" style={{ padding: "10px" }}>
             <h2 className="text-center">
-            <span
+              <span
                 style={{ textShadow: "#f3f3f3 5px 5px" }}
                 className="font-weight-bold"
-            >
+              >
                 Sign In
-            </span>
+              </span>
             </h2>
 
             <FormGroup>
-            <Label> Full Name </Label>
-            <Input
+              <Label> Full Name </Label>
+              <Input
                 type="name"
                 placeholder="e.g. John Adams"
                 className="form-control"
                 style={{ boxShadow: "#f3f3f3 2px 2px" }}
-            />
+              />
             </FormGroup>
 
             <FormGroup>
-                <Form.Row>
-                    <Col>
-                        <Label> Username </Label>
-                        <Input
-                            type="username"
-                            placeholder="Username"
-                            className="form-control"
-                            style={{ boxShadow: "#f3f3f3 2px 2px" }}
-                        />
-                    </Col>
-                    <Col>
-                        <Label> Password </Label>
-                        <Input
-                            type="password"
-                            placeholder="Password"
-                            className="form-control"
-                            style={{ boxShadow: "#f3f3f3 2px 2px" }}
-                        />
-                    </Col>
-                </Form.Row>
+              <Form.Row>
+                <Col>
+                  <Label> Username </Label>
+                  <Input
+                    type="username"
+                    placeholder="Username"
+                    className="form-control"
+                    style={{ boxShadow: "#f3f3f3 2px 2px" }}
+                  />
+                </Col>
+                <Col>
+                  <Label> Password </Label>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    className="form-control"
+                    style={{ boxShadow: "#f3f3f3 2px 2px" }}
+                  />
+                </Col>
+              </Form.Row>
             </FormGroup>
 
             <FormGroup>
-            <Label> Email </Label>
-            <Input
+              <Label> Email </Label>
+              <Input
                 type="email"
                 placeholder="your@email.com"
                 className="form-control"
                 style={{ boxShadow: "#f3f3f3 2px 2px" }}
-            />
+              />
             </FormGroup>
 
             <br />
             <Button
-            className="btn-lg btn-block btn-info"
-            style={{ boxShadow: "#f3f3f3 5px 5px" }}
+              className="btn-lg btn-block btn-info"
+              style={{ boxShadow: "#f3f3f3 5px 5px" }}
             >
-            Register
+              Next
+              <img
+                src={next}
+                className="text-center"
+                style={{
+                  height: "30px",
+                  width: "30px",
+                  marginLeft: "10px",
+                }}
+                alt=""
+              />
             </Button>
 
             <br />
             <br />
-        </Form>
+          </Form>
         </div>
 
         <div
@@ -119,6 +123,16 @@ class Register extends Component {
             }}
             alt=""
           />
+          <div
+            style={{
+              backgroundColor: "rgba(248, 240, 250, 0.35)",
+              position: "absolute",
+              top: "0",
+              right: "0",
+              width: "55%",
+              height: "100%",
+            }}
+          ></div>
         </div>
       </Card>
     );

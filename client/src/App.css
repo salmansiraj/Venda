@@ -1,10 +1,9 @@
-body {
-  display: flex;
-  flex-direction: column; /* creates rows out of the elements main and footer */
-  height: 100vh; 
-  margin:0;
+.app {
+  height: 100%;
+  min-height: 100vh;
 }
 
-main {
-  flex: 1 0 auto; /* allows the content to grow but not shrink */
+.card-group {
+  height: 100%;
+  min-height: 100vh;
 }

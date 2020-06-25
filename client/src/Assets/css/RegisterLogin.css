@@ -1,0 +1,46 @@
+.backCard { 
+    margin: 4%;
+    border-radius: 20px;
+    box-shadow: #f3f3f3 5px 10px;
+}
+
+.logo { 
+    width: 300px;
+    height: 90px;
+}
+
+
+.leftContainer { 
+    width: 300px;
+    height: 90px;
+}
+
+.textShadow { 
+    text-shadow: #f3f3f3 5px 5px;
+}
+
+.boxShadow { 
+    box-shadow: #f3f3f3 2px 2px;
+}
+
+.rightContainer { 
+    width: 55%;
+    padding: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.nextArrow { 
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.rightPhoto { 
+    height: 100%;
+    width: 100%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+

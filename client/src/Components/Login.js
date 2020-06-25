@@ -3,21 +3,13 @@ import {Button, Form, FormGroup, Label, Input, Card } from 'reactstrap';
 import logo from "../Assets/logo.png";
 import sidepic from "../Assets/sidepic.jpg";
 
-
 class Login extends Component {
     render() {
         return (
-          <Card
-            className="card-group"
-            style={{
-              margin: "4%",
-              borderRadius: "20px",
-              boxShadow: "#f3f3f3 5px 10px",
-            }}
-          >
+          <Card className="card-group">
             <div
               className="container"
-              style={{ width: "45%", borderRadius: "20px" }}
+              style={{ width: "45%", borderRadius: "20px", padding: "5%" }}
             >
               <br />
               <div className="text-center">
@@ -84,9 +76,7 @@ class Login extends Component {
               className="container"
               style={{
                 width: "55%",
-                padding: "0",
-                borderTopRightRadius: "20px",
-                borderBottomRightRadius: "20px",
+                padding: "0"
               }}
             >
               <img
@@ -94,12 +84,20 @@ class Login extends Component {
                 className="text-center"
                 style={{
                   height: "100%",
-                  width: "100%",
-                  borderTopRightRadius: "20px",
-                  borderBottomRightRadius: "20px",
+                  width: "100%"
                 }}
                 alt=""
               />
+              <div
+                style={{
+                    backgroundColor: "rgba(248, 240, 250, 0.35)",
+                    position: "absolute",
+                    top: "0",
+                    right: "0",
+                    width: "55%",
+                    height: "100%",
+                }}>
+              </div>
             </div>
           </Card>
         );
