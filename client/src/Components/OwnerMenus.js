@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import add from "../Assets/add.png";
 import qrCode from "../Assets/qr-code.png";
-
+import { Button } from "reactstrap";
 import { Card } from "reactstrap";
 
 class OwnerMenus extends Component {
@@ -10,38 +10,39 @@ class OwnerMenus extends Component {
           <div style={{ padding: "5%", backgroundColor: "#f8f9fa" }}>
             <h2> My Menus </h2>
             <div style={{ display: "flex" }}>
-              <Card
-                style={{
-                  width: "33%",
-                  height: "250px",
-                  boxShadow: "#f3f3f3 5px 5px 5px 5px",
-                  margin: "10px",
-                  overflow: "auto",
-                }}
-              >
-                <div style={{ padding: "5%", height: "40%" }}>
-                  <h4> Menu Name </h4>
-                  <p> Scans: </p>
-                </div>
-                <div
-                  className="text-center"
+                <Card
                   style={{
-                    padding: "5%",
-                    backgroundColor: "#edf4ff",
-                    height: "100%",
+                    width: "33%",
+                    height: "250px",
+                    boxShadow: "#f3f3f3 5px 5px 5px 5px",
+                    margin: "10px",
+                    overflow: "auto",
                   }}
                 >
-                  <h5 style={{padding: "5px", color: "#fd795a"}}> Download QR Code </h5>
-                  <img
-                    src={qrCode}
+
+                  <div style={{ padding: "5%", height: "40%" }}>
+                    <h4> <a href={"menupage"}  style={{color: "midnightblue"}}> Menu Name </a> </h4>
+                    <p> Scans: </p>
+                  </div>
+                  <div
+                    className="text-center"
                     style={{
-                      width: "60px",
-                      height: "60px",
+                      padding: "5%",
+                      backgroundColor: "#edf4ff",
+                      height: "100%",
                     }}
-                    alt="qrCode"
-                  />
-                </div>
-              </Card>
+                  >
+                    <h5 style={{padding: "5px", color: "#fd795a"}}> Download QR Code </h5>
+                    <img
+                      src={qrCode}
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                      }}
+                      alt="qrCode"
+                    />
+                  </div>
+                </Card>
 
               <Card
                 style={{

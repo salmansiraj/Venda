@@ -23,7 +23,7 @@ class AppNavbar extends Component {
               <Nav.Link href="/homepage"
               style={{color: "#002141" }}
               > Dashboard </Nav.Link>
-              <Nav.Link href="settings"
+              <Nav.Link href="settings/profile"
               style={{color: "#002141" }}
               > Settings </Nav.Link>
             </Nav>

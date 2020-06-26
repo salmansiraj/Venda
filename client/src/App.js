@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import OwnerHomepage from "./Components/OwnerHomepage";
 import MenuPage from "./Components/MenuPage";
-import SettingNavbar from "./Components/SettingComponents/SettingNavbar";
+import SettingsPage from "./Components/SettingComponents/SettingsPage";
 
 export default class App extends Component {
   
@@ -25,7 +25,7 @@ export default class App extends Component {
           <Route path="/homepage" exact component={OwnerHomepage} />
           <Route path="/menupage" exact component={MenuPage} />
           
-          <Route path="/settings" exact component={SettingNavbar} />
+          <Route path="/settings/:name" exact component={SettingsPage} />
         </Router>
       </div>
     );
