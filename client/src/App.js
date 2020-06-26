@@ -8,6 +8,7 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import OwnerHomepage from "./Components/OwnerHomepage";
+import MenuPage from "./Components/MenuPage";
 
 export default class App extends Component {
   
@@ -21,6 +22,7 @@ export default class App extends Component {
           <Route path="/register2" exact component={RegisterPayment} />
 
           <Route path="/homepage" exact component={OwnerHomepage} />
+          <Route path="/menupage" exact component={MenuPage} />
         </Router>
       </div>
     );

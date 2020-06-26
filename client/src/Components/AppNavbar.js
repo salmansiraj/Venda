@@ -9,7 +9,7 @@ class AppNavbar extends Component {
     render() {
         return (
           <Navbar variant="light">
-            <Navbar.Brand href="/ownerHomepage">
+            <Navbar.Brand href="/homepage">
               <img
                 src={logo}
                 style={{
@@ -20,7 +20,7 @@ class AppNavbar extends Component {
               />
             </Navbar.Brand>
             <Nav className="mr-auto">
-              <Nav.Link href="/ownerHomepage"
+              <Nav.Link href="/homepage"
               style={{color: "#002141" }}
               > Dashboard </Nav.Link>
               <Nav.Link href="settings"
