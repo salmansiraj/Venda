@@ -3,7 +3,12 @@
   min-height: 100vh;
 }
 
-.card-group {
-  height: 100%;
-  min-height: 100vh;
+.table .thead-light th {
+    color: #477884;
+    border-color: lightsteelblue;
 }
+
+
+
+
+
