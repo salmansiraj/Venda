@@ -62,6 +62,7 @@ export default class RegisterForm extends Component {
         // Can change   userid or have this data added to the dB first, 
         //    and then add the rest in the next page by looking at the userid
         window.location = `/register2?name=` + this.state.name
+        
     } else {
       alert("Error: Complete the form to continue!")
     }
