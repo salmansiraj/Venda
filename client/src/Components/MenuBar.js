@@ -1,18 +1,34 @@
 import React, { Component } from 'react';
 import { Button } from "reactstrap";
+import trash from "../Assets/trash.png";
+import edit from "../Assets/edit.png";
 
 class MenuBar extends Component {
     render() {
         return (
           <div style={{ padding: "5%", backgroundColor: "#f8f9fa" }}>
             <h2> Menu Name
-                <div style={{float: "right"}}>
-                    <Button style={{margin: "5px", backgroundColor: "#dce9ff", color: "#052545", fontWeight: "600"}}> Edit </Button>
-                    <Button style={{ backgroundColor: "#dce9ff", color: "#052545", fontWeight: "600"}}> Delete </Button>
-                </div>
+                    <img
+                      src={edit}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginRight: "15px",
+                        marginLeft: "15px",
+                      }}
+                      alt="edit"
+                    />
+                    <img
+                      src={trash}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                      }}
+                      alt="delete"
+                    />
             </h2>
           </div>
-        );
+        )
     }
 }
 

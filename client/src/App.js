@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import OwnerHomepage from "./Components/OwnerHomepage";
 import MenuPage from "./Components/MenuPage";
 import SettingsPage from "./Components/SettingComponents/SettingsPage";
+import AddCategoryPage from "./Components/AddComponents/AddCategoryPage";
 
 export default class App extends Component {
   
@@ -24,8 +25,9 @@ export default class App extends Component {
 
           <Route path="/homepage" exact component={OwnerHomepage} />
           <Route path="/menupage" exact component={MenuPage} />
-          
+
           <Route path="/settings/:name" exact component={SettingsPage} />
+          <Route path="/addCategory" exact component={AddCategoryPage} />
         </Router>
       </div>
     );
