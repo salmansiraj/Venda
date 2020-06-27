@@ -22,10 +22,6 @@ class OwnerMenus extends Component {
     this.setState({ open: false });
   };
 
-  openMenuCard = () => { 
-
-  }
-
   render() {
     console.log(this.state.open);
     return (
