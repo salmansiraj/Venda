@@ -10,6 +10,12 @@ class MenuItems extends Component {
 
   addCategory = () => { 
       window.location.href = "/addCategory"
+      // Should be addCategory?to={menuName}
+  }
+
+  addItem = () => { 
+      window.location.href = "/addItem"
+      // Should be /addItem?to={menuName}
   }
 
   render() {
@@ -19,7 +25,7 @@ class MenuItems extends Component {
 
         <div style={{ float: "right" }}>
           <Button onClick={this.addCategory} style={{ backgroundColor: "#3b6597" }}> Add Category </Button> 
-          <Button style={{ margin: "20px", backgroundColor: "#3b6597" }}> Add Item </Button>
+          <Button onClick={this.addItem} style={{ margin: "20px", backgroundColor: "#3b6597" }}> Add Item </Button>
         </div>
         <br />
         <h2> Categories </h2>
