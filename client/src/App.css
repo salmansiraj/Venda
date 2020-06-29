@@ -8,6 +8,20 @@
   min-height: 100vh;
 }
 
+@media (min-width: 1000px) {
+    .menuCard { 
+      height: 200px !important;
+    }
+}
+
+.cardTitle {
+  margin: 0 0 0 0 !important;
+}
+
+ul { 
+  padding: 0 0 0 0 !important;
+}
+
 .popup {  
   position: fixed;  
   width: 100%;  

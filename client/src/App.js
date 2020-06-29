@@ -13,6 +13,8 @@ import SettingsPage from "./Components/SettingComponents/SettingsPage";
 import AddCategoryPage from "./Components/AddComponents/AddCategoryPage";
 import AddItemPage from "./Components/AddComponents/AddItemPage";
 
+import CustomerMenuPage from "./Components/CustomerComponents/CustomerMenuPage";
+
 export default class App extends Component {
   
   render() { 
@@ -31,6 +33,8 @@ export default class App extends Component {
 
           <Route path="/addCategory" exact component={AddCategoryPage} />
           <Route path="/addItem" exact component={AddItemPage} />
+
+          <Route path="/customerMenu" exact component={CustomerMenuPage} />
         </Router>
       </div>
     );

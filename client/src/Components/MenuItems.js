@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import add from "../Assets/add.png";
 import { Card, Button } from "reactstrap";
 import trash from "../Assets/trash.png";
 import edit from "../Assets/edit.png";
