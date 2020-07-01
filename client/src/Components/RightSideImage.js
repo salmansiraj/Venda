@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
 import sidepic from '../Assets/sidepic.jpg'
+import "../App.css";
 
 class RightSideImage extends Component {
-    render() {
-        return (
-          <div
-            className="container"
-            style={{
-              width: "55%",
-              padding: "0",
-              borderTopRightRadius: "20px",
-              borderBottomRightRadius: "20px",
-            }}
-          >
+  constructor(props) {
+    super(props);
+    this.state = {
+      widthSize: window.innerWidth,
+    };
+
+    window.addEventListener("resize", this.update);
+  }
+
+  componentDidMount() {
+    this.update();
+  }
+
+  update = () => {
+    this.setState({
+      widthSize: window.innerWidth,
+    });
+  };
+
+  render() {
+    console.log(this.state.widthSize)
+    return (
+      <div>
+        {this.state.widthSize > 1000 && (
+          <>
             <img
               src={sidepic}
               className="text-center"
               style={{
+                position: "absolute",
+                top: "0",
+                right: "0",
+                width: "50%",
                 height: "100%",
-                width: "100%",
-                borderTopRightRadius: "20px",
-                borderBottomRightRadius: "20px",
               }}
               alt=""
             />
@@ -30,14 +46,15 @@ class RightSideImage extends Component {
                 position: "absolute",
                 top: "0",
                 right: "0",
-                width: "55%",
+                width: "50%",
                 height: "100%",
               }}
-            >
-            </div>
-          </div>
-        );
-    }
+            ></div>
+          </>
+        )}
+      </div>
+    );
+  }
 }
 
 export default RightSideImage;

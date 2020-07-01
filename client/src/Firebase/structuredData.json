@@ -1,0 +1,51 @@
+{
+    "users": { 
+        "user1": { 
+            "user_id": "salman1",
+            "first_name": "salman",
+            "last_name": "siraj",
+            "is_subscribed": "false",
+            "subscription_exp": "01/05/2020",
+            "email": "ss10298@nyu.edu"
+        }
+    },
+    "restaurants": { 
+        "salman1": { 
+            "restaurant1": {
+                "rest_id": "CAVA1",
+                "created_on": "01/02/2020",
+                "restaurant_name": "CAVA",
+                "address": "Times Square",
+                "menus": ["menu1_CAVA", "menu2_CAVA"]
+                }
+            }
+    },
+    "menus": { 
+        "CAVA1": { 
+            "menu1": { 
+                "menu_id": "menu1_CAVA",
+                "title": "lunch",
+                "qr-img": "----",
+                "scans_total": "40",
+                "scans": ["02/12/2020", "05/24/2020"],
+                "created_on": "01/15/2020",
+                "categories" : { 
+                    "appetizer" : { 
+                        "food_items" : ["item1", "item2", "item3"]
+                    }
+                }
+            }
+        }
+    },
+    "items": { 
+        "item1" : { 
+            "rest_id": "CAVA1", 
+            "menu_id": "menu1_CAVA",
+            "name": "fries",
+            "price": "5.00",
+            "image": "---",
+            "tags": ["spicy", "vegan"],
+            "added_on": "04/25/2020"
+        }
+    }
+}

@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { AuthProvider } from "./Firebase/Auth";
+import PrivateRoute from "./PrivateRoute";
+
 
 import Login from "./Components/Login";
 import Register from "./Components/Register";
@@ -12,31 +15,34 @@ import MenuPage from "./Components/MenuPage";
 import SettingsPage from "./Components/SettingComponents/SettingsPage";
 import AddCategoryPage from "./Components/AddComponents/AddCategoryPage";
 import AddItemPage from "./Components/AddComponents/AddItemPage";
-
 import CustomerMenuPage from "./Components/CustomerComponents/CustomerMenuPage";
 
 export default class App extends Component {
   
   render() { 
     return (
-      <div className="app">
+      <AuthProvider>
         <Router>
-          <Route path="/login" exact component={Login} />
+          <div>
+            <Route path="/login" exact component={Login} />
 
-          <Route path="/register" exact component={Register} />
-          <Route path="/register2" exact component={RegisterPayment} />
+            <Route path="/register" exact component={Register} />
+            <Route path="/register2" exact component={RegisterPayment} />
 
-          <Route path="/homepage" exact component={OwnerHomepage} />
-          <Route path="/menupage" exact component={MenuPage} />
+            <PrivateRoute path="/homepage" exact component={OwnerHomepage} />
+            <PrivateRoute path="/menupage" exact component={MenuPage} />
 
-          <Route path="/settings/:name" exact component={SettingsPage} />
+            <PrivateRoute path="/settings/:name" exact component={SettingsPage} />
 
-          <Route path="/addCategory" exact component={AddCategoryPage} />
-          <Route path="/addItem" exact component={AddItemPage} />
+            <PrivateRoute path="/addCategory" exact component={AddCategoryPage} />
+            <PrivateRoute path="/addItem" exact component={AddItemPage} />
 
-          <Route path="/customerMenu" exact component={CustomerMenuPage} />
+            <PrivateRoute path="/customerMenu" exact component={CustomerMenuPage} />
+          
+          </div>
         </Router>
-      </div>
+      
+      </AuthProvider>
     );
 
   }

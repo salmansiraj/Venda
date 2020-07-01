@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from "react-bootstrap/Navbar";
 import {Nav, Form } from "react-bootstrap"
 import logo from "../Assets/logo.png";
-import OwnerRestaurants from './OwnerRestaurants';
+import app from "../Firebase/base";
 
 
 class AppNavbar extends Component {
@@ -31,7 +31,11 @@ class AppNavbar extends Component {
               <Nav.Link 
                 href="login"
                 style={{color: "#002141" }}
-              > Sign Out</Nav.Link>
+              > 
+              
+                <button onClick={() => app.auth().signOut()}>Sign out</button>
+              
+              </Nav.Link>
             </Form>
           </Navbar>
         );

@@ -8,11 +8,21 @@
   min-height: 100vh;
 }
 
+
 @media (min-width: 1000px) {
     .menuCard { 
       height: 200px !important;
     }
 }
+
+@media (max-width: 1000px) {
+    signupCard {
+      width: "100%" !important
+    }
+}
+
+
+
 
 .cardTitle {
   margin: 0 0 0 0 !important;
