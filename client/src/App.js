@@ -6,6 +6,7 @@ import PrivateRoute from "./PrivateRoute";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import RegisterPayment from "./Components/RegisterPayment";
+import './Firebase/base';
 
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom'

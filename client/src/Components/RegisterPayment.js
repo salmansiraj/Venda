@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 import { Form, Button } from "react-bootstrap";
 import { FormGroup, Label, Input, Card } from "reactstrap";
 
@@ -8,7 +7,8 @@ import logo from "../Assets/logo.png";
 import next from "../Assets/next.png";
 import RightSideImage from "./RightSideImage"
 import "../App.css";
-import app from "../Firebase/base.js";
+import db from "../Firebase/firebaseDB";
+
 
 class RegisterPayment extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class RegisterPayment extends Component {
     e.preventDefault();
     if (this.state.creditNumber && this.state.phoneNumber && this.state.subscription) {
         // Add the state to the database now
-        // app.database().ref('users').push(this.state);
+        db.ref('users').push(this.state);
 
       window.location = "/homepage"
     } else {
