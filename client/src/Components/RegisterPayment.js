@@ -22,6 +22,7 @@ class RegisterPayment extends Component {
       email: "",
       password: "",
       subscription: "",
+      created_on: Date()
     };
   }
 
@@ -33,6 +34,7 @@ class RegisterPayment extends Component {
           lastName: this.props.location.userData.last,
           email: this.props.location.userData.email,
           password: this.props.location.userData.password,
+          created_on: Date.parse(new Date())
         });
       } else {
         window.location = "/register"
@@ -58,9 +60,14 @@ class RegisterPayment extends Component {
     e.preventDefault();
     if (this.state.creditNumber && this.state.phoneNumber && this.state.subscription) {
         // Add the state to the database now
-        db.ref('users').push(this.state);
+        const userid  = this.props.location.userData.user_id
 
-      window.location = "/homepage"
+        db.ref().child("users").child(userid).push();
+        db.ref().child("users").child(userid).set(this.state);
+
+        console.log(userid);
+        window.location = "/homepage/" + userid
+      
     } else {
       alert("Please fill out the fields to proceed!");
     }

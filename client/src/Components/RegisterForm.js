@@ -10,6 +10,7 @@ export default class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_id: "",
       name: "",
       username: "",
       password: "",
