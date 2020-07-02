@@ -4,7 +4,6 @@ import trash from "../Assets/trash.png";
 import edit from "../Assets/edit.png";
 import burger from "../Assets/burger.png";
 
-
 class MenuItems extends Component {
 
   addCategory = () => { 

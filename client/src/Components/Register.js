@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { withRouter } from "react-router";
 import { Form, Button, Col } from "react-bootstrap";
 import { FormGroup, Label, Input, Card } from "reactstrap";
@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom'
 import app from "../Firebase/base";
 import RightSideImage from "./RightSideImage";
 import "../App.css";
+import { AuthContext } from "../Firebase/Auth";
 
 const SignUp = ({ history }) => {
   const handleSignUp = useCallback(async event => {
@@ -17,18 +18,25 @@ const SignUp = ({ history }) => {
     try {
       await app
         .auth()
-        .createUserWithEmailAndPassword(email.value, password.value);
-      
-      const userData = { 
-        "first": first.value, 
-        "last": last.value, 
-        "email": email.value, 
-        "password": password.value 
-      }
-      history.push({ 
-        pathname: "/register2",
-        userData: userData
-      })
+        .createUserWithEmailAndPassword(email.value, password.value)
+        .then(data => {
+          console.log(data.user.uid);
+          const userData = {
+            user_id: data.user.uid,
+            first: first.value,
+            last: last.value,
+            email: email.value,
+            password: password.value,
+          }
+           history.push({ 
+            pathname: "/register2",
+            userData: userData
+          })
+        })
+        .catch(error => {
+          alert(error);
+        });
+
     } catch (error) {
       alert(error);
     }

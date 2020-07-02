@@ -16,7 +16,7 @@ const Login = ({ history }) => {
         await app
           .auth()
           .signInWithEmailAndPassword(email.value, password.value);
-        history.push("/");
+        history.push("/homepage/" + currentUser.uid);
       } catch (error) {
         alert(error);
       }
@@ -27,7 +27,8 @@ const Login = ({ history }) => {
   const { currentUser } = useContext(AuthContext);
 
   if (currentUser) {
-    return <Redirect to="/homepage" />;
+    console.log(currentUser.uid);
+    return <Redirect to={"/homepage/" + currentUser.uid} />;
   }
 
   return (

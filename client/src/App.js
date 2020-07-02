@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { AuthProvider } from "./Firebase/Auth";
 import PrivateRoute from "./PrivateRoute";
 
-
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import RegisterPayment from "./Components/RegisterPayment";
@@ -21,6 +20,7 @@ import CustomerMenuPage from "./Components/CustomerComponents/CustomerMenuPage";
 export default class App extends Component {
   
   render() { 
+
     return (
       <AuthProvider>
         <Router>
@@ -30,7 +30,7 @@ export default class App extends Component {
             <Route path="/register" exact component={Register} />
             <Route path="/register2" exact component={RegisterPayment} />
 
-            <PrivateRoute path="/homepage" exact component={OwnerHomepage} />
+            <PrivateRoute path="/homepage/:uid" exact component={OwnerHomepage} />
             <PrivateRoute path="/menupage" exact component={MenuPage} />
 
             <PrivateRoute path="/settings/:name" exact component={SettingsPage} />
