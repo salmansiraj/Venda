@@ -9,7 +9,6 @@ class OwnerHomepage extends Component {
             <div>
                 <AppNavbar />
                 <OwnerRestaurants />
-                <OwnerMenus />
             </div>
         );
     }
