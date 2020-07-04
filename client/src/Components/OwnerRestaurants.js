@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import add from "../Assets/add.png";
 import db from "../Firebase/firebaseDB";
 import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
+import OwnerMenus from "./OwnerMenus";
 
 class OwnerRestaurants extends Component {
   constructor(props) {
@@ -10,82 +11,36 @@ class OwnerRestaurants extends Component {
       open: false,
       menuFlag: false,
       restaurants: [],
-      menus: []
+      menus: [],
+      menuLoaded: false,
     };
 
     window.addEventListener("model", this.updateRestaurant);
   }
 
-  componentDidMount() {
-    db.ref("restaurants")
-      .child(window.location.href.split("/").pop())
-      .on(
-        "value",
-        (snapshot) => {
-          if (snapshot.val()) {
-            let snapVals = snapshot.val();
-            let valArray = Object.keys(snapVals).map((key) => {
-              return [key, snapVals[key]]
-            })
-            this.setState({
-              restaurants: valArray,
-            });
-            
-            valArray.forEach(restaurant => {
-              let menuArray = {}
-              db.ref("menus")
-                .child(restaurant[0])
-                .on("value", (snapshot) => {
-                  let snapVals2 = snapshot.val();
-                  // console.log(Object.keys(snapVals2))
-                  try { 
-                    if (snapVals2) {
-                      Object.keys(snapVals2).map((key) => {
-                        if (menuArray[key]) {
-                          menuArray[key].push(snapVals2[key])
-                        } else {
-
-                          menuArray[key] = [snapVals2[key]]
-                        }
-                      })
-                   }
-                  } catch(error)  {
-                    alert(error);
-                  }
-              
-                })
-                this.setState({ 
-                  menus: [...this.state.menus, menuArray]
-                })
-            })
-            // console.log(this.state.restaurants);
-            console.log("wtf", this.state.menus)
-          }
-        },
-        (error) => {
-          alert(error);
-        }
-      );
+  async componentDidMount() {
+    let resturants = await Promise.all(this.props.restaurants);
+    this.setState({ restaurants: resturants });
+    console.log(resturants);
   }
 
   // Adding Retaurants Feature
   updateRestaurant = () => {
     this.setState({ open: true });
-  }
+  };
 
   menuFlag = () => {
-    this.setState({ menuFlag: (!this.state.menuFlag) });
-  }
+    this.setState({ menuFlag: !this.state.menuFlag });
+  };
 
   // Cancel retaurants Feature
   cancelRestaurant = () => {
     this.setState({ open: false });
-  }
+  };
 
   addRestaurant = (e) => {
     e.preventDefault();
     const { rest_name, address, seating } = e.target.elements;
-    // console.log(rest_name.value, address.value)
 
     const userid = window.location.href.split("/").pop();
 
@@ -103,50 +58,14 @@ class OwnerRestaurants extends Component {
     this.cancelRestaurant();
   };
 
-  displayMenus = (restid) => {
-    // console.log(this.state.menus)
-    if (this.state.menus.length > 0) { 
-      this.state.menus.forEach((restMenus) => {
-        try {
-          Object.keys(restMenus).forEach((key) => {
-            console.log(restMenus[key].menu_name);
-            return <p> wtf </p>;
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    }
-
-    // db.ref("menus")
-    //   .child(restid)
-    //   .on("value", (snapshot) => { 
-    //     console.log(snapshot.val())
-    //     let restMenus = snapshot.val()
-
-    //     try {
-    //       Object.keys(restMenus).forEach((key) => { 
-    //         console.log(restMenus[key].menu_name)
-    //         return <p> wtf </p>
-    
-    //       })
-
-    //     } catch(error) { 
-    //       console.log(error)
-    //     }
-
-    //   })
-  }
-
-
-  cancelMenu = () => { 
-    this.setState({ 
-      menuFlag: (!this.state.menuFlag)
-    })
-  }
+  cancelMenu = () => {
+    this.setState({
+      menuFlag: !this.state.menuFlag,
+    });
+  };
 
   updateMenu = () => {
-    this.setState({ menuFlag: true })
+    this.setState({ menuFlag: true });
   };
 
   addMenu = (e) => {
@@ -154,24 +73,24 @@ class OwnerRestaurants extends Component {
     const userid = window.location.href.split("/").pop();
     const { menu_name, rest_name } = e.target.elements;
     // console.log(menu_name.value, rest_name.value);
-    
 
     // Adding Menu to menu node with respective retaurant ID
     db.ref("restaurants")
       .child(userid)
-      .on("value", (snapshot) => {
-          let snapVals = snapshot.val()
-          let valArray = Object.keys(snapVals).map((key) => { 
-            return [key, snapVals[key]]
-          })
+      .on(
+        "value",
+        (snapshot) => {
+          let snapVals = snapshot.val();
+          let valArray = Object.keys(snapVals).map((key) => {
+            return [key, snapVals[key]];
+          });
 
-          console.log(valArray)
-          valArray.forEach(restaurant => { 
+          valArray.forEach((restaurant) => {
             // console.log(restaurant[0], restaurant[1]);
-            if (rest_name.value === restaurant[1].rest_name) { 
-              const rest_id = restaurant[0]
+            if (rest_name.value === restaurant[1].rest_name) {
+              const rest_id = restaurant[0];
 
-              try { 
+              try {
                 db.ref().child("menus").child(rest_id).push();
 
                 db.ref("menus")
@@ -182,9 +101,8 @@ class OwnerRestaurants extends Component {
                     qr_img: "TEST",
                     scans_total: 0,
                   });
-
-              } catch { 
-                // The QR Image generator function will be called here 
+              } catch {
+                // The QR Image generator function will be called here
                 db.ref("menus")
                   .child(rest_id)
                   .push({
@@ -194,21 +112,21 @@ class OwnerRestaurants extends Component {
                     scans_total: 0,
                   });
               }
-
             }
-
-          })
+          });
         },
         (error) => {
           alert(error);
         }
       );
-        this.cancelMenu()
-    }
-
+    this.cancelMenu();
+  };
 
   render() {
+    console.log("before return restarants", this.props.restaurants);
+    // console.log("child menus", this.props.menus);
     return (
+      // setTimeout(() => {}, 2000)
       <div style={{ padding: "5%", backgroundColor: "#f8f9fa" }}>
         <h2> My Restaurants </h2>
         {this.state.menuFlag && (
@@ -232,7 +150,10 @@ class OwnerRestaurants extends Component {
                 type="text"
                 placeholder="e.g. Joes Pizza"
               />
-              <p className="text-muted" style={{fontSize: "smaller",padding: "5px"}}>
+              <p
+                className="text-muted"
+                style={{ fontSize: "smaller", padding: "5px" }}
+              >
                 Which restaurant are you adding this menu to
               </p>
 
@@ -261,43 +182,47 @@ class OwnerRestaurants extends Component {
         )}
         <br />
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {this.state.restaurants.length &&
-            this.state.restaurants.map((currRest, ind) => {
-              return (
-                <Card
-                  key={ind}
+          {this.state.restaurants.map((currRest, ind) => {
+            console.log(currRest);
+            return (
+              <Card
+                key={ind}
+                style={{
+                  width: "30%",
+                  height: "250px",
+                  boxShadow: "#f3f3f3 5px 5px 5px 5px",
+                  margin: "10px",
+                  overflow: "auto",
+                }}
+              >
+                <div style={{ padding: "5%", height: "50%" }}>
+                  <h4 style={{ color: "#fd795a" }}>
+                    {" "}
+                    {currRest["restDetails"].rest_name}{" "}
+                  </h4>
+                  <h4 style={{ color: "#fd795a" }}>
+                    {" "}
+                    {currRest["restDetails"].address}{" "}
+                  </h4>
+                </div>
+                <div
                   style={{
-                    width: "30%",
-                    height: "250px",
-                    boxShadow: "#f3f3f3 5px 5px 5px 5px",
-                    margin: "10px",
-                    overflow: "auto",
+                    padding: "5%",
+                    backgroundColor: "#edf4ff",
+                    height: "100%",
                   }}
                 >
-                  <div style={{ padding: "5%", height: "50%" }}>
-                    <h4 style={{ color: "#fd795a" }}>
-                      {" "}
-                      {currRest[1].rest_name}{" "}
-                    </h4>
-                    <h4 style={{ color: "#fd795a" }}>
-                      {" "}
-                      {currRest[1].address}{" "}
-                    </h4>
-                  </div>
-                  <div
-                    style={{
-                      padding: "5%",
-                      backgroundColor: "#edf4ff",
-                      height: "100%",
-                    }}
-                  >
-                    <h4> Menus </h4>
-                    {this.displayMenus()}
-
-                  </div>
-                </Card>
-              );
-            })}
+                  <h4> Menus </h4>
+                  {currRest["menus"]
+                    ? Object.keys(currRest["menus"]).map((key) => {
+                        let obj = currRest["menus"][key];
+                        return <p>{obj.menu_name}</p>;
+                      })
+                    : "No menus :("}
+                </div>
+              </Card>
+            );
+          })}
           <Card
             style={{
               width: "30%",
