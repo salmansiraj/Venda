@@ -1,29 +1,56 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Card, Button } from "reactstrap";
 import trash from "../Assets/trash.png";
 import edit from "../Assets/edit.png";
 import burger from "../Assets/burger.png";
 
 class MenuItems extends Component {
-
-  addCategory = () => { 
-      window.location.href = "/addCategory"
-      // Should be addCategory?to={menuName}
+  constructor(props) {
+    super(props);
+    this.state = {
+      currUser: "",
+      currMenu: "",
+    };
   }
 
-  addItem = () => { 
-      window.location.href = "/addItem"
-      // Should be /addItem?to={menuName}
+  componentDidMount() {
+    let link = window.location.href.split("/");
+    this.setState({
+      currUser: link[link.length - 1],
+      currMenu: link[link.length - 2],
+    });
   }
+
+  addCategory = () => {
+    window.location.href =
+      "/addCategory/" + this.state.currMenu + "/" + this.state.currUser;
+    // Should be addCategory?to={menuName}
+  };
+
+  addItem = () => {
+    window.location.href =
+      "/addItem/" + this.state.currMenu + "/" + this.state.currUser;
+    // Should be /addItem?to={menuName}
+  };
 
   render() {
-
     return (
       <div style={{ paddingLeft: "5%", backgroundColor: "#f8f9fa" }}>
-
         <div style={{ float: "right" }}>
-          <Button onClick={this.addCategory} style={{ backgroundColor: "#3b6597" }}> Add Category </Button> 
-          <Button onClick={this.addItem} style={{ margin: "20px", backgroundColor: "#3b6597" }}> Add Item </Button>
+          <Button
+            onClick={this.addCategory}
+            style={{ backgroundColor: "#3b6597" }}
+          >
+            {" "}
+            Add Category{" "}
+          </Button>
+          <Button
+            onClick={this.addItem}
+            style={{ margin: "20px", backgroundColor: "#3b6597" }}
+          >
+            {" "}
+            Add Item{" "}
+          </Button>
         </div>
         <br />
         <h2> Categories </h2>

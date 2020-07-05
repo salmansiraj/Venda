@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import add from "../Assets/add.png";
 import db from "../Firebase/firebaseDB";
 import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
-import OwnerMenus from "./OwnerMenus";
 
 class OwnerRestaurants extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
       menuFlag: false,
       restaurants: [],
       menus: [],
@@ -21,7 +18,7 @@ class OwnerRestaurants extends Component {
   async componentDidMount() {
     let resturants = await Promise.all(this.props.restaurants);
     this.setState({ restaurants: resturants });
-    console.log(resturants);
+    // console.log(resturants);
   }
 
   // Adding Retaurants Feature
@@ -36,26 +33,6 @@ class OwnerRestaurants extends Component {
   // Cancel retaurants Feature
   cancelRestaurant = () => {
     this.setState({ open: false });
-  };
-
-  addRestaurant = (e) => {
-    e.preventDefault();
-    const { rest_name, address, seating } = e.target.elements;
-
-    const userid = window.location.href.split("/").pop();
-
-    db.ref().child("restaurants").child(userid).push();
-
-    db.ref("restaurants")
-      .child(userid)
-      .push({
-        rest_name: rest_name.value,
-        address: address.value,
-        created_on: Date.parse(new Date()),
-        seating_occupancy: seating.value,
-        menus: [""],
-      });
-    this.cancelRestaurant();
   };
 
   cancelMenu = () => {
@@ -120,14 +97,14 @@ class OwnerRestaurants extends Component {
         }
       );
     this.cancelMenu();
+    window.location.reload();
   };
 
   render() {
-    console.log("before return restarants", this.props.restaurants);
-    // console.log("child menus", this.props.menus);
+    // console.log("before return restarants", this.props.restaurants);
+
     return (
-      // setTimeout(() => {}, 2000)
-      <div style={{ padding: "5%", backgroundColor: "#f8f9fa" }}>
+      <>
         <h2> My Restaurants </h2>
         {this.state.menuFlag && (
           <Form onSubmit={this.addMenu}>
@@ -214,98 +191,42 @@ class OwnerRestaurants extends Component {
                 >
                   <h4> Menus </h4>
                   {currRest["menus"]
-                    ? Object.keys(currRest["menus"]).map((key) => {
+                    ? Object.keys(currRest["menus"]).map((key, ind) => {
                         let obj = currRest["menus"][key];
-                        return <p>{obj.menu_name}</p>;
+                        // console.log(key);
+                        return (
+                          <div key={ind}>
+                            <Button
+                              onClick={() => {
+                                window.location.href =
+                                  "/menupage/" +
+                                  currRest["restId"] +
+                                  "/" +
+                                  key +
+                                  "/" +
+                                  window.location.href.split("/").pop();
+                              }}
+                              style={{
+                                margin: "3px",
+                                background: "none",
+                                border: "none",
+                                color: "midnightblue",
+                              }}
+                            >
+                              {obj.menu_name}
+                            </Button>
+
+                            <br />
+                          </div>
+                        );
                       })
                     : "No menus :("}
                 </div>
               </Card>
             );
           })}
-          <Card
-            style={{
-              width: "30%",
-              height: "250px",
-              backgroundColor: "#edf4ff",
-              boxShadow: "#f3f3f3 5px 5px 5px 5px",
-              margin: "10px",
-              overflow: "auto",
-            }}
-          >
-            {this.state.open === false && (
-              <div className="text-center" style={{ paddingTop: "20%" }}>
-                <a onClick={this.updateRestaurant}>
-                  <img
-                    src={add}
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                    }}
-                    alt="add-rest"
-                  />
-                </a>
-              </div>
-            )}
-            {this.state.open === true && (
-              <Form style={{ margin: "5%" }} onSubmit={this.addRestaurant}>
-                <Button
-                  style={{ float: "right" }}
-                  onClick={this.cancelRestaurant}
-                >
-                  {" "}
-                  x{" "}
-                </Button>
-                <br />
-                <br />
-                <FormGroup>
-                  <Label style={{ color: "midnightblue" }}>
-                    Restaurant Name
-                  </Label>
-                  <Input
-                    name="rest_name"
-                    type="text"
-                    placeholder="e.g. Joe's Pizza Shop"
-                  />
-                </FormGroup>
-
-                <FormGroup>
-                  <Label style={{ color: "midnightblue" }}> Address </Label>
-                  <Input
-                    name="address"
-                    type="text"
-                    placeholder="e.g. 412 Times Square "
-                  />
-                </FormGroup>
-
-                <FormGroup>
-                  <Label style={{ color: "midnightblue" }}>
-                    {" "}
-                    Seating Occupancy{" "}
-                  </Label>
-                  <Input name="seating" type="text" placeholder="e.g. 50 " />
-                </FormGroup>
-
-                <Button
-                  type="submit"
-                  style={{
-                    marginTop: "20px",
-                    backgroundColor: "midnightblue",
-                  }}
-                >
-                  Create Restaurant{" "}
-                </Button>
-              </Form>
-            )}
-          </Card>
         </div>
-        <div
-          style={{
-            width: "100%",
-            padding: "0 0 100% 0",
-          }}
-        ></div>
-      </div>
+      </>
     );
   }
 }
