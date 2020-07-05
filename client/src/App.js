@@ -34,7 +34,7 @@ export default class App extends Component {
               component={OwnerHomepage}
             />
             <PrivateRoute
-              path="/menupage/:uid/:mid"
+              path="/menupage/:mid/:rid/:mid"
               exact
               component={MenuPage}
             />
@@ -46,11 +46,15 @@ export default class App extends Component {
             />
 
             <PrivateRoute
-              path="/addCategory"
+              path="/addCategory/:uid/:mid"
               exact
               component={AddCategoryPage}
             />
-            <PrivateRoute path="/addItem" exact component={AddItemPage} />
+            <PrivateRoute
+              path="/addItem/:uid/:mid"
+              exact
+              component={AddItemPage}
+            />
 
             <PrivateRoute
               path="/customerMenu"

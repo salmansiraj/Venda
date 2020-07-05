@@ -160,7 +160,7 @@ class OwnerRestaurants extends Component {
         <br />
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {this.state.restaurants.map((currRest, ind) => {
-            // console.log(currRest);
+            console.log(currRest);
             return (
               <Card
                 key={ind}
@@ -200,6 +200,8 @@ class OwnerRestaurants extends Component {
                               onClick={() => {
                                 window.location.href =
                                   "/menupage/" +
+                                  currRest["restId"] +
+                                  "/" +
                                   key +
                                   "/" +
                                   window.location.href.split("/").pop();
