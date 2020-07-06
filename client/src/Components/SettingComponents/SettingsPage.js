@@ -270,6 +270,7 @@ class SettingsPage extends Component {
             </Button>
           </ul>
           {this.state.currCard === "profile" && this.profileCard()}
+          {this.state.currCard === "" && this.profileCard()}
           {this.state.currCard === "billing" && this.billingCard()}
           {this.state.currCard === "password" && this.passwordCard()}
         </nav>
