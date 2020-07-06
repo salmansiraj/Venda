@@ -8,7 +8,8 @@ class MenuBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currMenu: "",
+      menuObj: "",
+      categoryObj: "",
       currRest: "",
       menuName: "",
       editClicked: false,
@@ -16,7 +17,7 @@ class MenuBar extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     let link = window.location.href.split("/");
     let menuid = link[link.length - 2];
     let restid = link[link.length - 3];
@@ -25,11 +26,11 @@ class MenuBar extends Component {
       .child(restid)
       .child(menuid)
       .on("value", (snapshot) => {
-        let currName = snapshot.val().menu_name;
-        // console.log(currName);
+        let menuObject = snapshot.val();
+        let currName = menuObject["menu_name"];
 
         this.setState({
-          currMenu: menuid,
+          menuObj: menuObject,
           currRest: restid,
           menuName: currName,
         });
@@ -82,9 +83,9 @@ class MenuBar extends Component {
 
   render() {
     return (
-      <div style={{ padding: "5%", backgroundColor: "#f8f9fa" }}>
+      <div style={{ padding: "2%", backgroundColor: "#f8f9fa" }}>
         {this.state.editClicked === false ? (
-          <h2>
+          <h2 style={{ fontWeight: "900" }}>
             {this.state.menuName}
             <Button
               style={{ background: "none", border: "none" }}

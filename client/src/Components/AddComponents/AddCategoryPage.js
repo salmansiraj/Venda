@@ -17,12 +17,18 @@ class AddCategoryPage extends Component {
     this.setState({
       currUser: link[link.length - 1],
       currMenu: link[link.length - 2],
+      currRest: link[link.length - 3],
     });
   }
 
   goBack = () => {
     window.location.href =
-      "/menupage/" + this.state.currMenu + "/" + this.state.currUser;
+      "/menupage/" +
+      this.state.currRest +
+      "/" +
+      this.state.currMenu +
+      "/" +
+      this.state.currUser;
   };
 
   addCategoryToMenu = (e) => {
