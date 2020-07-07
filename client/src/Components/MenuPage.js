@@ -17,7 +17,6 @@ class MenuPage extends Component {
     // let userid = link[link.length - 1];
     let menuid = link[link.length - 2];
     // let restid = link[link.length - 3];
-
     db.ref("categories")
       .child(menuid)
       .on(
@@ -25,16 +24,22 @@ class MenuPage extends Component {
         async (snapshot) => {
           let categoryObj = snapshot.val();
           //   this.setState({ menuObj: categoryObj });
-          let valArray = Object.keys(categoryObj).map(async (key) => {
-            let obj = {};
-            obj["categoryId"] = key;
-            obj["categoryDetails"] = categoryObj[key];
-            let menuItems = await db.ref("menu-items").child(key).once("value");
-            obj["menuItems"] = menuItems.toJSON();
-            return obj;
-          });
-          //   console.log(valArray);
-          this.setState({ menuObj: valArray });
+          console.log(snapshot.val());
+          if (snapshot.val() !== null) {
+            let valArray = Object.keys(categoryObj).map(async (key) => {
+              let obj = {};
+              obj["categoryId"] = key;
+              obj["categoryDetails"] = categoryObj[key];
+              let menuItems = await db
+                .ref("menu-items")
+                .child(key)
+                .once("value");
+              obj["menuItems"] = menuItems.toJSON();
+              return obj;
+            });
+            //   console.log(valArray);
+            this.setState({ menuObj: valArray });
+          }
         },
         (error) => {
           alert(error);
@@ -50,6 +55,8 @@ class MenuPage extends Component {
         {this.state.menuObj.length > 0 && (
           <MenuItems menuObj={this.state.menuObj} />
         )}
+
+        {this.state.menuObj.length === 0 && <MenuItems menuObj="n/a" />}
       </div>
     );
   }

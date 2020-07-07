@@ -17,15 +17,19 @@ class MenuItems extends Component {
   }
 
   async componentDidMount() {
-    let menuObj = await Promise.all(this.props.menuObj);
-    console.log(menuObj);
-    this.setState({ menuObj: menuObj });
+    if (this.props.menuObj !== "n/a") {
+      // Testing the menuList
+      let menuObj = await Promise.all(this.props.menuObj);
+      console.log(menuObj);
+      this.setState({ menuObj: menuObj });
 
-    // Testing the menuList
-    this.state.menuObj.map((currCategory) => {
-      console.log(currCategory["categoryDetails"].categoryName);
-      console.log(currCategory["menuItems"]);
-    });
+      // this.state.menuObj.map((currCategory) => {
+      //   console.log(currCategory["categoryDetails"].categoryName);
+      //   console.log(currCategory["menuItems"]);
+      // });
+    } else {
+      this.setState({ menuObj: [] });
+    }
 
     let link = window.location.href.split("/");
     let userid = link[link.length - 1];
@@ -84,92 +88,93 @@ class MenuItems extends Component {
         </div>
         <br />
         <h2 style={{ fontWeight: "800" }}> Categories </h2>
-        {this.state.menuObj.map((currCategory, ind) => {
-          // console.log(currCategory["categoryDetails"].categoryName);
-          // console.log(currCategory["menuItems"]);
-          return (
-            <div style={{ paddingLeft: "2%", marginTop: "2%" }} key={ind}>
-              <h4> {currCategory["categoryDetails"].categoryName} </h4>
-              {currCategory["menuItems"]
-                ? Object.keys(currCategory["menuItems"]).map((key, ind) => {
-                    let obj = currCategory["menuItems"][key];
-                    console.log(obj);
-                    return (
-                      // <div key={ind}>
-                      //   <p> {obj["item_name"]}</p>
-                      //   <p> {obj["description"]}</p>
-                      //   <p> {obj["price"]}</p>
-                      // </div>
-                      <div key={ind} style={{ display: "flex" }}>
-                        <Card
-                          style={{
-                            width: "33%",
-                            height: "250px",
-                            boxShadow: "#f3f3f3 5px 5px 5px 5px",
-                            margin: "10px",
-                            overflow: "auto",
-                            display: "-webkit-inline-box",
-                          }}
-                        >
-                          <div
+        {this.props.menuObj !== "n/a" &&
+          this.state.menuObj.map((currCategory, ind) => {
+            // console.log(currCategory["categoryDetails"].categoryName);
+            // console.log(currCategory["menuItems"]);
+            return (
+              <div style={{ paddingLeft: "2%", marginTop: "2%" }} key={ind}>
+                <h4> {currCategory["categoryDetails"].categoryName} </h4>
+                {currCategory["menuItems"]
+                  ? Object.keys(currCategory["menuItems"]).map((key, ind) => {
+                      let obj = currCategory["menuItems"][key];
+                      console.log(obj.item_image);
+                      // console.log(currCategory)
+                      return (
+                        // <div key={ind}>
+                        //   <p> {obj["item_name"]}</p>
+                        //   <p> {obj["description"]}</p>
+                        //   <p> {obj["price"]}</p>
+                        // </div>
+                        <div key={ind} style={{ display: "flex" }}>
+                          <Card
                             style={{
-                              padding: "5%",
-                              width: "50%",
-                              height: "100%",
+                              width: "33%",
+                              height: "250px",
+                              boxShadow: "#f3f3f3 5px 5px 5px 5px",
+                              margin: "10px",
+                              overflow: "auto",
+                              display: "-webkit-inline-box",
                             }}
                           >
-                            <img
-                              src={burger}
+                            <div
                               style={{
-                                width: "100%",
+                                width: "50%",
                                 height: "100%",
                               }}
-                              alt="burger-example"
-                            />
-                          </div>
-                          <div
-                            style={{
-                              padding: "5%",
-                              backgroundColor: "#edf4ff",
-                              width: "50%",
-                              height: "100%",
-                              overflowY: "auto",
-                            }}
-                          >
-                            <div style={{ float: "right" }}>
+                            >
                               <img
-                                src={edit}
+                                src={obj.item_image}
                                 style={{
-                                  width: "20px",
-                                  height: "20px",
-                                  marginRight: "15px",
+                                  width: "100%",
+                                  height: "100%",
                                 }}
-                                alt="edit"
-                              />
-                              <img
-                                src={trash}
-                                style={{
-                                  width: "20px",
-                                  height: "20px",
-                                }}
-                                alt="delete"
+                                alt="burger-example"
                               />
                             </div>
-                            <br />
-                            <br />
-                            <h5> {obj["item_name"]}</h5>
-                            <p> {obj["description"]}</p>
-                            <p> {obj["price"]}</p>
-                            <p> Tags </p>
-                          </div>
-                        </Card>
-                      </div>
-                    );
-                  })
-                : ""}
-            </div>
-          );
-        })}
+                            <div
+                              style={{
+                                padding: "5%",
+                                backgroundColor: "#edf4ff",
+                                width: "50%",
+                                height: "100%",
+                                overflowY: "auto",
+                              }}
+                            >
+                              <div style={{ float: "right" }}>
+                                <img
+                                  src={edit}
+                                  style={{
+                                    width: "20px",
+                                    height: "20px",
+                                    marginRight: "15px",
+                                  }}
+                                  alt="edit"
+                                />
+                                <img
+                                  src={trash}
+                                  style={{
+                                    width: "20px",
+                                    height: "20px",
+                                  }}
+                                  alt="delete"
+                                />
+                              </div>
+                              <br />
+                              <br />
+                              <h5> {obj["item_name"]}</h5>
+                              <p> {obj["description"]}</p>
+                              <p> {obj["price"]}</p>
+                              <p> Tags </p>
+                            </div>
+                          </Card>
+                        </div>
+                      );
+                    })
+                  : ""}
+              </div>
+            );
+          })}
         <div
           style={{
             width: "100%",

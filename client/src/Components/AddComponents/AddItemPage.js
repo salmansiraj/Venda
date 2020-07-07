@@ -110,50 +110,70 @@ class AddItemPage extends Component {
         Object.keys(snapVals).map(async (key) => {
           // console.log(snapVals[key].categoryName);
           // return <option> {snapVals[key].categoryName} </option>;
-          currCategories.push(snapVals[key].categoryName);
+          currCategories.push([key, snapVals[key].categoryName]);
         });
         this.setState({ currCategories: currCategories });
       });
   }
 
   goBack = () => {
+    let link = window.location.href.split("/");
+
     window.location.href =
       "/menupage/" +
-      this.state.currRest +
+      link[link.length - 3] +
       "/" +
-      this.state.currMenu +
+      link[link.length - 2] +
       "/" +
-      this.state.currUser;
+      link[link.length - 1];
   };
 
   addItemToMenu = (e) => {
     e.preventDefault();
-    const { itemMenu, description, price, spicy, vegan } = e.target.elements;
+    let link = window.location.href.split("/");
+    const {
+      categoryChosen,
+      itemMenu,
+      description,
+      price,
+      spicy,
+      vegan,
+    } = e.target.elements;
+
     let tags = {
       spicy: spicy.value,
       vegan: vegan.value,
     };
 
-    if (this.state.currUser !== "") {
-    }
+    let categoryKey = "";
 
-    // console.log(this.state.url, itemMenu.value, description.value, price.value);
-
-    for (const tagKey of Object.keys(tags)) {
-      if (tags[tagKey] === true) {
-        // add to final tag object
+    Object.keys(this.state.currCategories).map((key) => {
+      console.log(this.state.currCategories[key][1], categoryChosen.value);
+      if (this.state.currCategories[key][1] === categoryChosen.value) {
+        categoryKey = this.state.currCategories[key][0];
       }
-    }
-  };
+    });
 
-  getCategory = () => {
-    return <option> wtf </option>;
-    // console.log(categories);
-    // if (categories.length > 0) {
-    //   categories.forEach((category) => {
-    //     return <option> {category} </option>;
-    //   });
-    // }
+    // let tagList = [];
+    console.log(categoryKey);
+    // console.log(this.state.currUser, myCategory);
+
+    // console.log(tagList);
+
+    db.ref().child("menu-items").child(categoryKey).push();
+    db.ref("menu-items")
+      .child(categoryKey)
+      .push({
+        created_on: Date.parse(new Date()),
+        description: description.value,
+        item_image: this.state.url,
+        item_name: itemMenu.value,
+        price: price.value,
+        tags: tags,
+      });
+
+    // console.log(this.state.currCategories);
+    this.goBack();
   };
 
   render() {
@@ -235,19 +255,12 @@ class AddItemPage extends Component {
                 </FormGroup>
                 <br />
                 <FormGroup>
+                  <Label> Category</Label>
                   <select className="form-control" name="categoryChosen">
                     {this.state.currCategories.map((category, ind) => {
-                      return <option key={ind}> {category} </option>;
+                      return <option key={ind}> {category[1]} </option>;
                     })}
                   </select>
-                  <br />
-                  <Label> Category</Label>
-                  <Input
-                    name="category"
-                    type="text"
-                    placeholder="e.g. Appetizer"
-                    required
-                  />
                   <p className="text-muted" style={{ fontSize: "smaller" }}>
                     What category do you want to add the new item to?{" "}
                   </p>
