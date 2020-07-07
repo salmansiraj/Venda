@@ -55,8 +55,7 @@ class AddCategoryPage extends Component {
           });
       }
     }
-
-    window.location.reload();
+    this.goBack();
   };
 
   render() {
