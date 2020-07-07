@@ -8,8 +8,8 @@ const config = {
   databaseURL: "https://chelnr-dev.firebaseio.com",
   projectId: "chelnr-dev",
   storageBucket: "chelnr-dev.appspot.com",
-  messagingSenderId: "746441121721"
-}
+  messagingSenderId: "746441121721",
+};
 
 const app = firebase.initializeApp(config);
 

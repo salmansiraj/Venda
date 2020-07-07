@@ -42,24 +42,23 @@ class MenuItems extends Component {
   }
 
   addCategory = () => {
+    let link = window.location.href.split("/");
+    let userid = link[link.length - 1];
+    let menuid = link[link.length - 2];
+    let restid = link[link.length - 3];
+
     window.location.href =
-      "/addCategory/" +
-      this.state.currRest +
-      "/" +
-      this.state.currMenu +
-      "/" +
-      this.state.currUser;
+      "/addCategory/" + restid + "/" + menuid + "/" + userid;
     // Should be addCategory?to={menuName}
   };
 
   addItem = () => {
-    window.location.href =
-      "/addItem/" +
-      this.state.currRest +
-      "/" +
-      this.state.currMenu +
-      "/" +
-      this.state.currUser;
+    let link = window.location.href.split("/");
+    let userid = link[link.length - 1];
+    let menuid = link[link.length - 2];
+    let restid = link[link.length - 3];
+
+    window.location.href = "/addItem/" + restid + "/" + menuid + "/" + userid;
     // Should be /addItem?to={menuName}
   };
 
