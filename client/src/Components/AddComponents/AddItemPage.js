@@ -344,7 +344,7 @@ class AddItemPage extends Component {
 
                 <button type="submit" className="btn btn-info">
                   {" "}
-                  Add Category{" "}
+                  Add Item{" "}
                 </button>
               </Form>
             </Card>

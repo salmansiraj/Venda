@@ -149,7 +149,7 @@ class SettingsPage extends Component {
         <div style={{ margin: "5%" }}>
           <h4 className="text-center"> Change Password </h4>
           <br />
-          <Form>
+          <Form onSubmit={this.editPassword}>
             <FormGroup>
               <Label> Current password </Label>
               <Input
@@ -168,7 +168,7 @@ class SettingsPage extends Component {
               />
             </FormGroup>
             <br />
-            <Button style={{ backgroundColor: "midnightblue" }}>
+            <Button type="submit" style={{ backgroundColor: "midnightblue" }}>
               {" "}
               Save new password{" "}
             </Button>
