@@ -18,7 +18,7 @@ class OwnerRestaurants extends Component {
   async componentDidMount() {
     let resturants = await Promise.all(this.props.restaurants);
     this.setState({ restaurants: resturants });
-    // console.log(resturants);
+    console.log(resturants);
   }
 
   // Adding Retaurants Feature
@@ -106,7 +106,7 @@ class OwnerRestaurants extends Component {
     return (
       <>
         <h2> My Restaurants </h2>
-        {this.state.menuFlag && (
+        {this.state.menuFlag && this.state.restaurants.length > 0 && (
           <Form onSubmit={this.addMenu}>
             <Button style={{ float: "right" }} onClick={this.cancelMenu}>
               x{" "}
@@ -122,28 +122,32 @@ class OwnerRestaurants extends Component {
             </FormGroup>
             <FormGroup>
               <Label style={{ color: "midnightblue" }}> Restaurant Name </Label>
-              <Input
-                name="rest_name"
-                type="text"
-                placeholder="e.g. Joes Pizza"
-              />
+              <select className="form-control" name="rest_name">
+                {this.state.restaurants.map((currMenu, ind) => {
+                  return (
+                    <option key={ind}>
+                      {" "}
+                      {currMenu.restDetails.rest_name}{" "}
+                    </option>
+                  );
+                })}
+              </select>
               <p
                 className="text-muted"
                 style={{ fontSize: "smaller", padding: "5px" }}
               >
                 Which restaurant are you adding this menu to
               </p>
-
-              <Button
-                type="submit"
-                style={{
-                  marginTop: "20px",
-                  backgroundColor: "midnightblue",
-                }}
-              >
-                Create Menu
-              </Button>
             </FormGroup>
+            <Button
+              type="submit"
+              style={{
+                marginTop: "20px",
+                backgroundColor: "midnightblue",
+              }}
+            >
+              Create Menu
+            </Button>
           </Form>
         )}
         {this.state.menuFlag === false && (

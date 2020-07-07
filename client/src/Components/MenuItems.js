@@ -98,7 +98,8 @@ class MenuItems extends Component {
                 {currCategory["menuItems"]
                   ? Object.keys(currCategory["menuItems"]).map((key, ind) => {
                       let obj = currCategory["menuItems"][key];
-                      console.log(obj.item_image);
+                      // console.log(obj.item_image);
+                      console.log(obj);
                       // console.log(currCategory)
                       return (
                         // <div key={ind}>
@@ -129,7 +130,7 @@ class MenuItems extends Component {
                                   width: "100%",
                                   height: "100%",
                                 }}
-                                alt="burger-example"
+                                alt="item-image"
                               />
                             </div>
                             <div

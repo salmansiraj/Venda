@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import AppNavbar from "../AppNavbar";
 import { Card, FormGroup, Form, Label, Input, Button } from "reactstrap";
 import { Image, ProgressBar, Col } from "react-bootstrap";
@@ -53,7 +53,7 @@ class AddItemPage extends Component {
   handleProfileUpload = () => {
     if (this.state.image) {
       const { image } = this.state;
-      const uploadTask = storage.ref(`Desktop/${image.name}`).put(image);
+      const uploadTask = storage.ref(`/${image.name}`).put(image);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -70,8 +70,7 @@ class AddItemPage extends Component {
         () => {
           // complete function
           storage
-            .ref("Desktop")
-            .child(image.name)
+            .ref(image.name)
             .getDownloadURL()
             .then((url) => {
               console.log(url);

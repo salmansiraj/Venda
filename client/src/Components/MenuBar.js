@@ -115,7 +115,18 @@ class MenuBar extends Component {
             </Button>
           </h2>
         ) : (
-          <h2>
+          <h2 style={{ fontWeight: "900", padding: "5px" }}>
+            {this.state.menuName}
+            <Button
+              style={{ background: "#db3838", float: "right", margin: "5px" }}
+              onClick={() => {
+                this.setState({
+                  editClicked: !this.state.editClicked,
+                });
+              }}
+            >
+              x{" "}
+            </Button>
             <Form onSubmit={this.editMenu}>
               <FormGroup>
                 <Input name="menuName" type="text" required />
