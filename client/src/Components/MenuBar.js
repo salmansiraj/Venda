@@ -75,6 +75,9 @@ class MenuBar extends Component {
     let menuid = link[link.length - 2];
     let restid = link[link.length - 3];
 
+    if (window.confirm("Are you sure you want to delete this menu?")) {
+    }
+
     let currJson = db.ref("menus").child(restid).child(menuid);
     currJson.remove();
 

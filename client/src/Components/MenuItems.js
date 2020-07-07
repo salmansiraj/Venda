@@ -13,6 +13,7 @@ class MenuItems extends Component {
       menuid: "",
       restid: "",
       menuObj: [],
+      editClicked: false,
     };
   }
 
@@ -20,13 +21,8 @@ class MenuItems extends Component {
     if (this.props.menuObj !== "n/a") {
       // Testing the menuList
       let menuObj = await Promise.all(this.props.menuObj);
-      console.log(menuObj);
+      // console.log(menuObj);
       this.setState({ menuObj: menuObj });
-
-      // this.state.menuObj.map((currCategory) => {
-      //   console.log(currCategory["categoryDetails"].categoryName);
-      //   console.log(currCategory["menuItems"]);
-      // });
     } else {
       this.setState({ menuObj: [] });
     }
@@ -44,6 +40,23 @@ class MenuItems extends Component {
       restid: restid,
     });
   }
+
+  updateDelete = (currCategory, obj, ind) => {
+    // console.log("update function", currCategory, obj);
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      Object.keys(currCategory.menuItems).map((key) => {
+        console.log(currCategory.menuItems[key]);
+        if (currCategory.menuItems[key] === obj) {
+          let currJson = db
+            .ref("menu-items")
+            .child(currCategory.categoryId)
+            .child(key);
+          currJson.remove();
+        }
+      });
+    }
+    window.location.reload();
+  };
 
   addCategory = () => {
     let link = window.location.href.split("/");
@@ -67,7 +80,7 @@ class MenuItems extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div style={{ paddingLeft: "2%", backgroundColor: "#f8f9fa" }}>
         <div style={{ float: "right" }}>
@@ -99,14 +112,9 @@ class MenuItems extends Component {
                   ? Object.keys(currCategory["menuItems"]).map((key, ind) => {
                       let obj = currCategory["menuItems"][key];
                       // console.log(obj.item_image);
-                      console.log(obj);
+                      // console.log(obj);
                       // console.log(currCategory)
                       return (
-                        // <div key={ind}>
-                        //   <p> {obj["item_name"]}</p>
-                        //   <p> {obj["description"]}</p>
-                        //   <p> {obj["price"]}</p>
-                        // </div>
                         <div key={ind} style={{ display: "flex" }}>
                           <Card
                             style={{
@@ -143,23 +151,21 @@ class MenuItems extends Component {
                               }}
                             >
                               <div style={{ float: "right" }}>
-                                <img
-                                  src={edit}
-                                  style={{
-                                    width: "20px",
-                                    height: "20px",
-                                    marginRight: "15px",
+                                <Button
+                                  style={{ background: "none", border: "none" }}
+                                  onClick={() => {
+                                    this.updateDelete(currCategory, obj);
                                   }}
-                                  alt="edit"
-                                />
-                                <img
-                                  src={trash}
-                                  style={{
-                                    width: "20px",
-                                    height: "20px",
-                                  }}
-                                  alt="delete"
-                                />
+                                >
+                                  <img
+                                    src={trash}
+                                    style={{
+                                      width: "20px",
+                                      height: "20px",
+                                    }}
+                                    alt="delete"
+                                  />
+                                </Button>
                               </div>
                               <br />
                               <br />
