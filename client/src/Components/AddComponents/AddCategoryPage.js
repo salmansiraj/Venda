@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, Component } from "react";
 import AppNavbar from "../AppNavbar";
 import { Card, FormGroup, Form, Label, Input } from "reactstrap";
 import db from "../../Firebase/firebaseDB";

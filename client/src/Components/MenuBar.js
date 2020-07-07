@@ -75,6 +75,9 @@ class MenuBar extends Component {
     let menuid = link[link.length - 2];
     let restid = link[link.length - 3];
 
+    if (window.confirm("Are you sure you want to delete this menu?")) {
+    }
+
     let currJson = db.ref("menus").child(restid).child(menuid);
     currJson.remove();
 
@@ -115,7 +118,18 @@ class MenuBar extends Component {
             </Button>
           </h2>
         ) : (
-          <h2>
+          <h2 style={{ fontWeight: "900", padding: "5px" }}>
+            {this.state.menuName}
+            <Button
+              style={{ background: "#db3838", float: "right", margin: "5px" }}
+              onClick={() => {
+                this.setState({
+                  editClicked: !this.state.editClicked,
+                });
+              }}
+            >
+              x{" "}
+            </Button>
             <Form onSubmit={this.editMenu}>
               <FormGroup>
                 <Input name="menuName" type="text" required />
