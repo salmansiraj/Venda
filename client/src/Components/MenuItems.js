@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Card, Button } from "reactstrap";
+import {
+  Card,
+  Form,
+  Button,
+  FormGroup,
+  Label,
+  Input,
+  Col,
+  Row,
+} from "reactstrap";
 import trash from "../Assets/trash.png";
 import edit from "../Assets/edit.png";
 import burger from "../Assets/burger.png";
@@ -14,6 +23,7 @@ class MenuItems extends Component {
       restid: "",
       menuObj: [],
       editClicked: false,
+      dataToEdit: "",
     };
   }
 
@@ -56,6 +66,61 @@ class MenuItems extends Component {
       });
     }
     window.location.reload();
+  };
+
+  updateEdit = (currCategory, obj) => {
+    this.setState({ editClicked: true, dataToEdit: [currCategory, obj] });
+    console.log("update function", currCategory, obj);
+  };
+
+  editRender = () => {
+    console.log(this.state.dataToEdit);
+    let currItem = this.state.dataToEdit[1];
+    return (
+      <Card style={{ padding: "3%", marginLeft: "20%" }}>
+        <button
+          onClick={() => {
+            this.setState({ editClicked: false });
+          }}
+          style={{ width: "100px", placeSelf: "flex-end" }}
+          type="button"
+          className="btn btn-sm btn-outline-danger"
+        >
+          {" "}
+          cancel{" "}
+        </button>
+        <h3 style={{ textAlign: "center", fontWeight: "700" }}>
+          {" "}
+          Editing Menu Item
+        </h3>
+        <Form>
+          <FormGroup>
+            <Row>
+              <Col>
+                <p style={{ fontWeight: "300" }}>
+                  {" "}
+                  <b> Current Item Name: </b>
+                  {currItem.item_name}
+                  <br />
+                  <b> Current Description: </b>
+                  {currItem.description}
+                  <br />
+                  <b> Current Price: </b>${currItem.price}
+                </p>
+              </Col>
+              <Col>
+                <Label> New Item Name </Label>
+                <Input />
+                <Label> New Description </Label>
+                <Input />
+                <Label> New Price </Label>
+                <Input />
+              </Col>
+            </Row>
+          </FormGroup>
+        </Form>
+      </Card>
+    );
   };
 
   addCategory = () => {
@@ -101,6 +166,7 @@ class MenuItems extends Component {
         </div>
         <br />
         <h2 style={{ fontWeight: "800" }}> Categories </h2>
+        {this.state.editClicked === true && this.editRender()}
         {this.props.menuObj !== "n/a" &&
           this.state.menuObj.map((currCategory, ind) => {
             // console.log(currCategory["categoryDetails"].categoryName);
@@ -151,6 +217,22 @@ class MenuItems extends Component {
                               }}
                             >
                               <div style={{ float: "right" }}>
+                                <Button
+                                  style={{ background: "none", border: "none" }}
+                                  onClick={() => {
+                                    this.updateEdit(currCategory, obj);
+                                  }}
+                                >
+                                  <img
+                                    src={edit}
+                                    style={{
+                                      width: "20px",
+                                      height: "20px",
+                                      marginRight: "5px",
+                                    }}
+                                    alt="edit"
+                                  />
+                                </Button>
                                 <Button
                                   style={{ background: "none", border: "none" }}
                                   onClick={() => {
