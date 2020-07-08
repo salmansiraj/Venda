@@ -7,6 +7,7 @@ import {
   faQuestionCircle,
   faWindowClose,
 } from "@fortawesome/free-solid-svg-icons";
+import db from "../../Firebase/firebaseDB";
 
 class SettingsPage extends Component {
   constructor(props) {
@@ -132,6 +133,25 @@ class SettingsPage extends Component {
     );
   };
 
+  editPassword = (e) => {
+    e.preventDefault();
+    let userid = window.location.href.split("/").pop();
+    let { currPass, newPass } = e.target.elements;
+
+    db.ref("users")
+      .child(userid)
+      .on("value", (snapshot) => {
+        console.log(snapshot.val());
+        if (snapshot.val().password === currPass.value) {
+          let userJson = db.ref("users").child(userid);
+          userJson.update({
+            password: newPass.value,
+          });
+          window.confirm("Password Successfully changed");
+        }
+      });
+  };
+
   passwordCard = () => {
     return (
       <Card
@@ -153,16 +173,16 @@ class SettingsPage extends Component {
             <FormGroup>
               <Label> Current password </Label>
               <Input
-                type="username"
-                placeholder="Username"
+                name="currPass"
+                type="password"
                 className="form-control"
                 style={{ boxShadow: "#f3f3f3 2px 2px" }}
               />
               <br />
               <Label> New password </Label>
               <Input
-                type="username"
-                placeholder="Username"
+                name="newPass"
+                type="password"
                 className="form-control"
                 style={{ boxShadow: "#f3f3f3 2px 2px" }}
               />
@@ -199,6 +219,7 @@ class SettingsPage extends Component {
             <FormGroup>
               <Label> Email </Label>
               <Input
+                name="email"
                 type="username"
                 placeholder="Username"
                 className="form-control"
