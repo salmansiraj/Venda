@@ -55,7 +55,7 @@ class MenuItems extends Component {
     // console.log("update function", currCategory, obj);
     if (window.confirm("Are you sure you want to delete this item?")) {
       Object.keys(currCategory.menuItems).map((key) => {
-        console.log(currCategory.menuItems[key]);
+        // console.log(currCategory.menuItems[key]);
         if (currCategory.menuItems[key] === obj) {
           let currJson = db
             .ref("menu-items")
@@ -70,11 +70,11 @@ class MenuItems extends Component {
 
   updateEdit = (currCategory, obj) => {
     this.setState({ editClicked: true, dataToEdit: [currCategory, obj] });
-    console.log("update function", currCategory, obj);
+    // console.log("update function", currCategory, obj);
   };
 
   editRender = () => {
-    console.log(this.state.dataToEdit);
+    // console.log(this.state.dataToEdit);
     let currItem = this.state.dataToEdit[1];
     return (
       <Card style={{ padding: "3%", marginLeft: "20%" }}>
@@ -93,7 +93,11 @@ class MenuItems extends Component {
           {" "}
           Editing Menu Item
         </h3>
-        <Form>
+        <p className="text-muted text-center" style={{ fontSize: "smaller" }}>
+          Leave input field blank if you choose not to change that specific
+          context...
+        </p>
+        <Form onSubmit={this.changeItemData}>
           <FormGroup>
             <Row>
               <Col>
@@ -110,17 +114,65 @@ class MenuItems extends Component {
               </Col>
               <Col>
                 <Label> New Item Name </Label>
-                <Input />
+                <Input name="newItem" type="text" />
+
                 <Label> New Description </Label>
-                <Input />
+                <Input name="newDesc" type="text" />
                 <Label> New Price </Label>
-                <Input />
+                <Input
+                  name="newPrice"
+                  type="number"
+                  placeholder="$0.00"
+                  min="0.00"
+                  step="0.01"
+                />
               </Col>
             </Row>
+            <button
+              className="btn btn-block btn-outline-info"
+              style={{
+                marginTop: "15px",
+              }}
+            >
+              Edit Item
+            </button>
           </FormGroup>
         </Form>
       </Card>
     );
+  };
+
+  changeItemData = (e) => {
+    e.preventDefault();
+    const { newItem, newDesc, newPrice } = e.target.elements;
+    let currCategory = this.state.dataToEdit[0];
+    let obj = this.state.dataToEdit[1];
+    // console.log(currCategory, obj);
+
+    Object.keys(currCategory.menuItems).map((key) => {
+      if (currCategory.menuItems[key] === obj) {
+        let currJson = db
+          .ref("menu-items")
+          .child(currCategory.categoryId)
+          .child(key);
+        if (newItem.value !== "") {
+          currJson.update({
+            item_name: newItem.value,
+          });
+        }
+        if (newDesc.value !== "") {
+          currJson.update({
+            description: newDesc.value,
+          });
+        }
+        if (newPrice.value !== "") {
+          currJson.update({
+            price: newPrice.value,
+          });
+        }
+      }
+    });
+    window.location.reload();
   };
 
   addCategory = () => {
@@ -167,100 +219,118 @@ class MenuItems extends Component {
         <br />
         <h2 style={{ fontWeight: "800" }}> Categories </h2>
         {this.state.editClicked === true && this.editRender()}
+
         {this.props.menuObj !== "n/a" &&
           this.state.menuObj.map((currCategory, ind) => {
             // console.log(currCategory["categoryDetails"].categoryName);
             // console.log(currCategory["menuItems"]);
             return (
-              <div style={{ paddingLeft: "2%", marginTop: "2%" }} key={ind}>
+              <div>
                 <h4> {currCategory["categoryDetails"].categoryName} </h4>
-                {currCategory["menuItems"]
-                  ? Object.keys(currCategory["menuItems"]).map((key, ind) => {
-                      let obj = currCategory["menuItems"][key];
-                      // console.log(obj.item_image);
-                      // console.log(obj);
-                      // console.log(currCategory)
-                      return (
-                        <div key={ind} style={{ display: "flex" }}>
-                          <Card
-                            style={{
-                              width: "33%",
-                              height: "250px",
-                              boxShadow: "#f3f3f3 5px 5px 5px 5px",
-                              margin: "10px",
-                              overflow: "auto",
-                              display: "-webkit-inline-box",
-                            }}
-                          >
-                            <div
+                <div
+                  style={{
+                    paddingLeft: "2%",
+                    paddingRight: "2%",
+                    marginTop: "2%",
+                    display: "flex",
+                    flexWrap: "wrap",
+                  }}
+                  key={ind}
+                >
+                  {currCategory["menuItems"]
+                    ? Object.keys(currCategory["menuItems"]).map((key, ind) => {
+                        let obj = currCategory["menuItems"][key];
+                        // console.log(obj.item_image);
+                        // console.log(obj);
+                        // console.log(currCategory)
+                        return (
+                          <>
+                            <Card
                               style={{
-                                width: "50%",
-                                height: "100%",
+                                width: "48%",
+                                height: "250px",
+                                boxShadow: "#f3f3f3 5px 5px 5px 5px",
+                                margin: "10px",
+                                overflow: "auto",
+                                display: "-webkit-inline-box",
                               }}
                             >
-                              <img
-                                src={obj.item_image}
+                              <div
                                 style={{
-                                  width: "100%",
+                                  width: "50%",
                                   height: "100%",
                                 }}
-                                alt="item-image"
-                              />
-                            </div>
-                            <div
-                              style={{
-                                padding: "5%",
-                                backgroundColor: "#edf4ff",
-                                width: "50%",
-                                height: "100%",
-                                overflowY: "auto",
-                              }}
-                            >
-                              <div style={{ float: "right" }}>
-                                <Button
-                                  style={{ background: "none", border: "none" }}
-                                  onClick={() => {
-                                    this.updateEdit(currCategory, obj);
+                              >
+                                <img
+                                  src={obj.item_image}
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
                                   }}
-                                >
-                                  <img
-                                    src={edit}
-                                    style={{
-                                      width: "20px",
-                                      height: "20px",
-                                      marginRight: "5px",
-                                    }}
-                                    alt="edit"
-                                  />
-                                </Button>
-                                <Button
-                                  style={{ background: "none", border: "none" }}
-                                  onClick={() => {
-                                    this.updateDelete(currCategory, obj);
-                                  }}
-                                >
-                                  <img
-                                    src={trash}
-                                    style={{
-                                      width: "20px",
-                                      height: "20px",
-                                    }}
-                                    alt="delete"
-                                  />
-                                </Button>
+                                  alt="item-image"
+                                />
                               </div>
-                              <br />
-                              <br />
-                              <h5> {obj["item_name"]}</h5>
-                              <p> {obj["description"]}</p>
-                              <p> {obj["price"]}</p>
-                              <p> Tags </p>
-                            </div>
-                          </Card>
-                        </div>
-                      );
-                    })
-                  : ""}
+                              <div
+                                style={{
+                                  padding: "5%",
+                                  backgroundColor: "#edf4ff",
+                                  width: "50%",
+                                  height: "100%",
+                                  overflowY: "auto",
+                                }}
+                              >
+                                <div style={{ float: "right" }}>
+                                  <Button
+                                    style={{
+                                      background: "none",
+                                      border: "none",
+                                    }}
+                                    onClick={() => {
+                                      this.updateEdit(currCategory, obj);
+                                    }}
+                                  >
+                                    <img
+                                      src={edit}
+                                      style={{
+                                        width: "20px",
+                                        height: "20px",
+                                        marginRight: "5px",
+                                      }}
+                                      alt="edit"
+                                    />
+                                  </Button>
+                                  <Button
+                                    style={{
+                                      background: "none",
+                                      border: "none",
+                                    }}
+                                    onClick={() => {
+                                      this.updateDelete(currCategory, obj);
+                                    }}
+                                  >
+                                    <img
+                                      src={trash}
+                                      style={{
+                                        width: "20px",
+                                        height: "20px",
+                                      }}
+                                      alt="delete"
+                                    />
+                                  </Button>
+                                </div>
+                                <br />
+                                <br />
+                                <h5> {obj["item_name"]}</h5>
+                                <p> {obj["description"]}</p>
+                                <p> ${obj["price"]}</p>
+                                <p> Tags </p>
+                              </div>
+                            </Card>
+                          </>
+                        );
+                      })
+                    : ""}
+                </div>
               </div>
             );
           })}
