@@ -226,12 +226,14 @@ class MenuItems extends Component {
             // console.log(currCategory["menuItems"]);
             return (
               <div>
-                <h4> {currCategory["categoryDetails"].categoryName} </h4>
+                <h3 style={{ fontWeight: "700" }}>
+                  {currCategory["categoryDetails"].categoryName}
+                </h3>
+                <hr />
                 <div
                   style={{
                     paddingLeft: "2%",
                     paddingRight: "2%",
-                    marginTop: "2%",
                     display: "flex",
                     flexWrap: "wrap",
                   }}
